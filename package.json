@@ -1,0 +1,18 @@
+{
+  "name": "blogs",
+  "version": "1.0.0",
+  "description": "node for creating back-end API for the blogs create",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "back-endblogs"
+  },
+  "author": "Tchami Ernest",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
