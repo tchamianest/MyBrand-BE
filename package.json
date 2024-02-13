@@ -1,20 +1,21 @@
 {
-  "name": "blogs",
+  "name": "back-endblogs",
   "version": "1.0.0",
-  "description": "node for creating back-end API for the blogs create",
+  "description": "make the blogs and chanage it like post comments and other",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "back-endblogs"
-  },
-  "author": "Tchami Ernest",
+  "author": "Tchami",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.2",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.2",
     "nodemon": "^3.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
   }
 }
