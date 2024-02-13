@@ -29,10 +29,10 @@ router.post("/blogs", async (req, res) => {
 
 ///////GET INDIVIDUAL POST
 
-router.get("blog/:id", async (req, res) => {
+router.get("/blog/:id", async (req, res) => {
   try {
     const blogs = await blog.findOne({ _id: req.params.id });
-    res.end(blogs);
+    res.send(blogs);
   } catch {
     res.status(404);
     res.send({ error: "Post dosen't exist !" });
