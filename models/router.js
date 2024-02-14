@@ -4,72 +4,25 @@ const blog = require("./blog");
 const Post = require("./blog");
 const router = express.Router();
 
-////GET ALL POST
-router.get("/blog", async (req, res) => {
-  const blogs = await blog.find();
-  res.send(blogs);
-});
+//// import all the controller function
+const blogcontroll = require("./../controller/blogcontroll");
 
-////CREATE POST
-router.post("/blogs", async (req, res) => {
-  try {
-    const blog = new Post({
-      title: req.body.title,
-      like: req.body.like,
-      template: req.body.template,
-      image_src: req.body.image_src,
-      small_description: req.body.small_description,
-    });
-    await blog.save();
-    res.send(blog);
-  } catch (error) {
-    console.log(error);
-  }
-});
+////GET ALL POST AND POST NEW ALL USE SAME ROUTE
 
-///////GET INDIVIDUAL POST
+router
+  .route("/blogs")
+  .post(blogcontroll.postblog)
+  .get(blogcontroll.getallblogs);
 
-router.get("/blog/:id", async (req, res) => {
-  try {
-    const blogs = await blog.findOne({ _id: req.params.id });
-    res.send(blogs);
-  } catch {
-    res.status(404);
-    res.send({ error: "Post dosen't exist !" });
-  }
-});
+///////update INDIVIDUAL POST and remove ALL BASED ON ID
 
-///////update INDIVIDUAL POST
-
-router.patch("/blog/:id", async (req, res) => {
-  try {
-    const blogs = await blog.findOne({ _id: req.params.id });
-
-    if (req.body.title) {
-      blogs.title = req.body.title;
-    }
-
-    if (req.body.content) {
-      blogs.content = req.body.content;
-    }
-
-    await blogs.save();
-    res.send(Post);
-  } catch {
-    res.status(404);
-    res.send({ error: "Post doesn't exist!" });
-  }
-});
+router
+  .route("/blog/:id")
+  .patch(blogcontroll.Updateblog)
+  .delete(blogcontroll.Deleteblogs)
+  .get(blogcontroll.getSingleblog);
 
 ////DELETE THE SINGLE BLOGS
-router.delete("/blog/:id", async (req, res) => {
-  try {
-    await blog.deleteOne({ _id: req.params.id });
-    res.status(204).send();
-  } catch {
-    res.status(404);
-    res.send({ error: "Post doesn't exist!" });
-  }
-});
+// router.delete("/blog/:id", blogcontroll.Deleteblogs);
 
 module.exports = router;

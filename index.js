@@ -12,11 +12,12 @@ mongoose
     const app = express();
     app.use(express.json());
     app.use("/api", routes);
-
-    app.listen(PORT, () => {
-      console.log("welcome");
-    });
   })
+
   .catch((error) => {
     console.error(error.message);
   });
+const app = express();
+app.listen(PORT, () => {
+  console.log("welcome");
+});
