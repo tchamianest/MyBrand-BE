@@ -16,6 +16,8 @@ router
     .patch(blogcontroll_1.Updateblog)
     .delete(blogcontroll_1.Deleteblogs)
     .get(blogcontroll_1.GetSingleblog);
+router.route("/blog/:id/comments").post(blogcontroll_1.Postcomments);
+router.route("/blog/:id/comments/:commentId").patch(blogcontroll_1.UpdateComment);
 ////DELETE THE SINGLE BLOGS
 // router.delete("/blog/:id", blogcontroll.Deleteblogs);
 exports.default = router;

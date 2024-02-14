@@ -6,6 +6,8 @@ import {
   Getallblogs,
   Deleteblogs,
   Updateblog,
+  UpdateComment,
+  Postcomments,
 } from "../controller/blogcontroll";
 const router: Router = express.Router();
 
@@ -24,6 +26,8 @@ router
   .delete(Deleteblogs)
   .get(GetSingleblog);
 
+router.route("/blog/:id/comments").post(Postcomments);
+router.route("/blog/:id/comments/:commentId").patch(UpdateComment);
 ////DELETE THE SINGLE BLOGS
 // router.delete("/blog/:id", blogcontroll.Deleteblogs);
 

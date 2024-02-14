@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Updateblog = exports.Deleteblogs = exports.GetSingleblog = exports.Getallblogs = exports.Postblog = void 0;
+exports.UpdateComment = exports.Postcomments = exports.Updateblog = exports.Deleteblogs = exports.GetSingleblog = exports.Getallblogs = exports.Postblog = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
+const comment_1 = __importDefault(require("../models/comment"));
 const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const blog = new blog_1.default({
@@ -33,7 +34,7 @@ const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.Postblog = Postblog;
 const Getallblogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const blogs = yield blog_1.default.find();
-    console.log(blogs);
+    // console.log(blogs);
     res.send(blogs);
 });
 exports.Getallblogs = Getallblogs;
@@ -94,3 +95,50 @@ const Updateblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.Updateblog = Updateblog;
 // export { postblog, getallblogs, getSingleblog, Deleteblogs, Updateblog };
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////COMMENTS SECTION
+const Postcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const blogId = req.params.id;
+        const blog = yield blog_1.default.findById(blogId);
+        if (!blog) {
+            return res.status(404).send({ error: "blog Post Not Found" });
+        }
+        const comment = new comment_1.default({
+            name: req.body.name,
+            comment: req.body.comment,
+        });
+        yield comment.save();
+        //add the commments to blogcomments array
+        blog.comments.push(comment);
+        yield blog.save();
+        res.status(201).send(comment);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.Postcomments = Postcomments;
+////UPDATE COMMENTS
+const UpdateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { blogId, commentId } = req.params;
+        const blog = yield blog_1.default.findById(blogId);
+        if (!blog) {
+            return res.status(404).send({ error: "Blog post not found!" });
+        }
+        const comment = yield comment_1.default.findByIdAndUpdate(commentId, {
+            name: req.body.name,
+            comment: req.body.comment,
+        }, { new: true });
+        if (!comment) {
+            return res.status(404).send({ error: "Comment not found!" });
+        }
+        res.send(comment);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+exports.UpdateComment = UpdateComment;

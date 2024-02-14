@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Blog, { Iblog } from "../models/blog";
+import Comments, { CommentD } from "../models/comment";
 
 export const Postblog = async (req: Request, res: Response) => {
   try {
@@ -19,7 +20,7 @@ export const Postblog = async (req: Request, res: Response) => {
 
 export const Getallblogs = async (req: Request, res: Response) => {
   const blogs = await Blog.find();
-  console.log(blogs);
+  // console.log(blogs);
   res.send(blogs);
 };
 
@@ -80,3 +81,59 @@ export const Updateblog = async (req: Request, res: Response) => {
 };
 
 // export { postblog, getallblogs, getSingleblog, Deleteblogs, Updateblog };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////COMMENTS SECTION
+export const Postcomments = async (req: Request, res: Response) => {
+  try {
+    const blogId = req.params.id;
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).send({ error: "blog Post Not Found" });
+    }
+
+    const comment: CommentD = new Comments({
+      name: req.body.name,
+      comment: req.body.comment,
+    });
+    await comment.save();
+
+    //add the commments to blogcomments array
+    blog.comments.push(comment);
+    await blog.save();
+    res.status(201).send(comment);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+////UPDATE COMMENTS
+export const UpdateComment = async (req: Request, res: Response) => {
+  try {
+    const { blogId, commentId } = req.params;
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).send({ error: "Blog post not found!" });
+    }
+
+    const comment = await Comments.findByIdAndUpdate(
+      commentId,
+      {
+        name: req.body.name,
+        comment: req.body.comment,
+      },
+      { new: true }
+    );
+
+    if (!comment) {
+      return res.status(404).send({ error: "Comment not found!" });
+    }
+
+    res.send(comment);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+};
