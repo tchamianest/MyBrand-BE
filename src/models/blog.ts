@@ -16,7 +16,12 @@ const schema: Schema = new mongoose.Schema({
   title: String,
   like: Number,
   template: String,
-  comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
   image_src: String,
   small_description: String,
 });

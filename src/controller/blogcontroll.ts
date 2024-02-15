@@ -27,7 +27,9 @@ export const Getallblogs = async (req: Request, res: Response) => {
 //// get singleblogs
 export const GetSingleblog = async (req: Request, res: Response) => {
   try {
-    const blogs = await Blog.findOne({ _id: req.params.id });
+    const blogs = await Blog.findOne({ _id: req.params.id }).populate(
+      "comments"
+    );
     res.send(blogs);
   } catch {
     res.status(404);
@@ -94,7 +96,7 @@ export const Postcomments = async (req: Request, res: Response) => {
     }
 
     const comment: CommentD = new Comments({
-      name: req.body.name,
+      names: req.body.name,
       comment: req.body.comment,
     });
     await comment.save();
@@ -121,7 +123,7 @@ export const UpdateComment = async (req: Request, res: Response) => {
     const comment = await Comments.findByIdAndUpdate(
       commentId,
       {
-        name: req.body.name,
+        names: req.body.name,
         comment: req.body.comment,
       },
       { new: true }
