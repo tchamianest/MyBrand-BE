@@ -1,15 +1,34 @@
 import express, { Router } from "express";
 
 import {
+  Createmessage,
+  Replymessage,
+  Getallmessage,
+} from "../controller/Querries";
+
+import {
   Postblog,
   GetSingleblog,
   Getallblogs,
   Deleteblogs,
   Updateblog,
+} from "../controller/blogcontroll";
+import {
+  Deletcomments,
   UpdateComment,
   Postcomments,
-} from "../controller/blogcontroll";
+  Getallcomments,
+  Singlecomments,
+  Getcommentstoblog,
+} from "../controller/comments";
 const router: Router = express.Router();
+import { Isblogexist, Messagereply } from "../middleware/middle";
+import {
+  GetLikestoblog,
+  GetallLikes,
+  Putlikes,
+  RemoveLike,
+} from "../controller/like";
 
 //// import all the controller function
 // const blogcontroll = require("./../controller/blogcontroll");
@@ -26,9 +45,22 @@ router
   .delete(Deleteblogs)
   .get(GetSingleblog);
 
-router.route("/blog/:id/comments").post(Postcomments);
-router.route("/blog/:id/comments/:commentId").patch(UpdateComment);
-////DELETE THE SINGLE BLOGS
-// router.delete("/blog/:id", blogcontroll.Deleteblogs);
+/////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅coomments section✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
+router.route("/blog/:id/comments").post(Isblogexist, Postcomments);
+router.route("/blog/:id/comments").get(Isblogexist, Getcommentstoblog);
+router.route("/comments").get(Getallcomments);
+router.route("/comments/:id").get(Singlecomments);
+router.route("/comments/:id").patch(UpdateComment);
+router.route("/comments/:id").delete(Deletcomments);
 
+////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
+///CONTROLL MY MESSAGES
+router.route("/message").post(Createmessage).get(Getallmessage);
+router.route("/message/:id/reply").patch(Messagereply, Replymessage);
+///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
+///CONTROL THE LIKES
+router.route("/blog/:id/likes").post(Isblogexist, Putlikes);
+router.route("/blog/:id/likes").get(Isblogexist, GetLikestoblog);
+router.route("/likes").get(GetallLikes);
+router.route("/likes/:id").delete(RemoveLike);
 export default router;

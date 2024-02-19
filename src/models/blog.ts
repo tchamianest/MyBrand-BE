@@ -1,9 +1,7 @@
-import { Schema, Document } from "mongoose";
-
 import mongoose from "mongoose";
 import { CommentD } from "./comment";
 
-export interface Iblog extends Document {
+export interface Iblog {
   title: string;
   like: number;
   template: string;
@@ -12,16 +10,11 @@ export interface Iblog extends Document {
   small_description: string;
 }
 
-const schema: Schema = new mongoose.Schema({
+const schema = new mongoose.Schema<Iblog>({
   title: String,
   like: Number,
   template: String,
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
+  comments: [],
   image_src: String,
   small_description: String,
 });

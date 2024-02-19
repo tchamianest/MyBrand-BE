@@ -1,6 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./models/router";
+import bodyParser from "body-parser";
+
+///BODY PARSER
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 ////CONNECTING TO MY DATABASE
 const PORT = 8000;
 mongoose
@@ -8,7 +15,6 @@ mongoose
     "mongodb+srv://tchamianest:ZDKDJ5G7px4pdgbR@cluster0.9cr0mrz.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => {
-    const app = express();
     app.use(express.json());
     app.use("/api", router);
     app.listen(PORT, () => {
