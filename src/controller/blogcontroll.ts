@@ -7,7 +7,7 @@ import { Cloudinaryuploads } from "../cloudinary/cloudinary";
 export const Postblog = async (req: Request, res: Response) => {
   try {
     const blogscheker = Validateblogtopost(req.body);
-    console.log(req.body.key);
+    // console.log(req.body.key);
 
     if (blogscheker.error) {
       return res.status(400).send(blogscheker.error.message);
