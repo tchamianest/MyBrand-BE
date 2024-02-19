@@ -7,11 +7,11 @@ exports.commentsvalidation = exports.Messagevalidation = exports.Validateblogtop
 const joi_1 = __importDefault(require("joi"));
 const Validateblogtopost = (blogs) => {
     const BlogcreateSchema = joi_1.default.object({
-        title: joi_1.default.string().min(10),
+        title: joi_1.default.string().min(10).required(),
         like: joi_1.default.number(),
-        template: joi_1.default.string().min(4),
+        template: joi_1.default.string().min(4).required(),
         comments: joi_1.default.any(),
-        small_description: joi_1.default.string().min(9),
+        small_description: joi_1.default.string().min(9).required(),
     });
     return BlogcreateSchema.validate(blogs);
 };

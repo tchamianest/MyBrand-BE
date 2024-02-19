@@ -5,11 +5,11 @@ import { CommentD } from "../models/comment";
 
 export const Validateblogtopost = (blogs: Iblog) => {
   const BlogcreateSchema = Joi.object<Iblog>({
-    title: Joi.string().min(10),
+    title: Joi.string().min(10).required(),
     like: Joi.number(),
-    template: Joi.string().min(4),
+    template: Joi.string().min(4).required(),
     comments: Joi.any(),
-    small_description: Joi.string().min(9),
+    small_description: Joi.string().min(9).required(),
   });
 
   return BlogcreateSchema.validate(blogs);
