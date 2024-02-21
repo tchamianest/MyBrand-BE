@@ -1,13 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./models/router";
-import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import passport from "passport";
+import bodyParser from "body-parser";
+import Users from "./models/users";
+import "./jwt/authe";
 ///BODY PARSER
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use("/user", passport.authenticate("jwt", { session: false }), router);
+app.use(function (err: any, req: any, res: any, next: any) {
+  res.status(err.status || 500);
+  res.json({ error: err });
+});
 
 ////CONNECTING TO MY DATABASE
 const PORT = 8000;
@@ -17,7 +23,7 @@ mongoose
   )
   .then(() => {
     app.use(express.json());
-    app.use(cookieParser());
+    passport.initialize();
     app.use("/api", router);
     app.listen(PORT, () => {
       console.log("welcome");
@@ -27,3 +33,4 @@ mongoose
   .catch((error: Error) => {
     console.error(error.message);
   });
+mongoose.Promise = global.Promise;

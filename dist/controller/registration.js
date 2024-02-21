@@ -63,6 +63,7 @@ const Loginuser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const accessToken = (0, jwt_1.Tokencreate)(user);
                 res.cookie("access-token", accessToken, {
                     maxAge: 60 * 60 * 24 * 10 * 1000,
+                    httpOnly: true,
                 });
                 res.json("loged in");
             }

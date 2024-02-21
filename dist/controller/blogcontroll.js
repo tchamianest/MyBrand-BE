@@ -14,43 +14,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Updateblog = exports.Deleteblogs = exports.GetSingleblog = exports.Getallblogs = exports.Postblog = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
-const validation_1 = require("../validation/validation");
+// import uploads from "../cloudinary/multer";
+const cloudinary_1 = __importDefault(require("../cloudinary/cloudinary"));
+const multer_1 = __importDefault(require("../cloudinary/multer"));
+const upload = multer_1.default;
 const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blogscheker = (0, validation_1.Validateblogtopost)(req.body);
-        if (blogscheker.error) {
-            return res.status(400).send(blogscheker.error.message);
-        }
-        // uploads.single("image")(req, res, async (err: any) => {
-        //   if (err) {
-        //     res.status(400).send({ error: "error Uploading the file" });
-        //     return;
-        //   }
-        //   if (req.file) {
-        //     const folder = "blog-images";
-        //     const result = (await Cloudinaryuploads(req.file.path, folder)) as {
-        //       url: string;
-        //       id: string;
-        //     };
-        const blog = new blog_1.default({
-            title: req.body.title,
-            like: req.body.like,
-            template: req.body.template,
-            small_description: req.body.small_description,
-            // image_src: result.url,
-        });
-        yield blog.save();
-        return res.status(201).send(blog);
+        // const blogChecker = Validateblogtopost(req.body);
+        // if (blogChecker.error) {
+        //   return res.status(400).send(blogChecker.error.message);
+        // }
+        upload.single("image")(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+            // console.log(req.body);
+            // console.log(req.file);
+            try {
+                if (err) {
+                    return res.status(400).send({ error: "Error uploading the file" });
+                }
+                if (!req.file)
+                    return res.status(404).send("no req file");
+                console.log(req.file.path);
+                const result = yield cloudinary_1.default.uploader.upload(req.file.path);
+                let imageUrl = "";
+                imageUrl = result.url;
+                // console.log(result);
+                const blog = new blog_1.default({
+                    title: req.body.title,
+                    like: req.body.like,
+                    template: req.body.template,
+                    small_description: req.body.small_description,
+                    image_src: imageUrl,
+                });
+                yield blog.save();
+                return res.status(201).send(blog);
+            }
+            catch (error) {
+                // console.log(error);
+                return res.status(500).send({ error: "Internal server error" });
+            }
+        }));
     }
     catch (error) {
         console.log(error);
-        res.status(500).send({ error: "Internal server error" });
+        return res.status(500).send({ error: "Internal server error" });
     }
 });
 exports.Postblog = Postblog;
 const Getallblogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const blogs = yield blog_1.default.find();
-    // console.log(blogs);
     res.send(blogs);
 });
 exports.Getallblogs = Getallblogs;

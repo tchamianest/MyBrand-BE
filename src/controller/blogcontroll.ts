@@ -1,47 +1,58 @@
 import { Request, Response } from "express";
 import Blog, { Iblog } from "../models/blog";
 import { Validateblogtopost } from "../validation/validation";
-import uploads from "../cloudinary/multer";
-import { Cloudinaryuploads } from "../cloudinary/cloudinary";
+// import uploads from "../cloudinary/multer";
+import cloudinary from "../cloudinary/cloudinary";
+import image from "../cloudinary/multer";
 
+const upload = image;
 export const Postblog = async (req: Request, res: Response) => {
   try {
-    const blogscheker = Validateblogtopost(req.body);
+    // const blogChecker = Validateblogtopost(req.body);
 
-    if (blogscheker.error) {
-      return res.status(400).send(blogscheker.error.message);
-    }
+    // if (blogChecker.error) {
+    //   return res.status(400).send(blogChecker.error.message);
+    // }
 
-    // uploads.single("image")(req, res, async (err: any) => {
-    //   if (err) {
-    //     res.status(400).send({ error: "error Uploading the file" });
-    //     return;
-    //   }
+    upload.single("image")(req, res, async (err: any) => {
+      // console.log(req.body);
+      // console.log(req.file);
+      try {
+        if (err) {
+          return res.status(400).send({ error: "Error uploading the file" });
+        }
 
-    //   if (req.file) {
-    //     const folder = "blog-images";
-    //     const result = (await Cloudinaryuploads(req.file.path, folder)) as {
-    //       url: string;
-    //       id: string;
-    //     };
-    const blog = new Blog({
-      title: req.body.title,
-      like: req.body.like,
-      template: req.body.template,
-      small_description: req.body.small_description,
-      // image_src: result.url,
+        if (!req.file) return res.status(404).send("no req file");
+        console.log(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path);
+
+        let imageUrl = "";
+        imageUrl = result.url;
+        // console.log(result);
+        const blog = new Blog({
+          title: req.body.title,
+          like: req.body.like,
+          template: req.body.template,
+          small_description: req.body.small_description,
+          image_src: imageUrl,
+        });
+        await blog.save();
+
+        return res.status(201).send(blog);
+      } catch (error) {
+        // console.log(error);
+        return res.status(500).send({ error: "Internal server error" });
+      }
     });
-    await blog.save();
-    return res.status(201).send(blog);
   } catch (error) {
     console.log(error);
-    res.status(500).send({ error: "Internal server error" });
+    return res.status(500).send({ error: "Internal server error" });
   }
 };
 
 export const Getallblogs = async (req: Request, res: Response) => {
   const blogs = await Blog.find();
-  // console.log(blogs);
+
   res.send(blogs);
 };
 

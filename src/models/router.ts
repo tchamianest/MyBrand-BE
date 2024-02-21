@@ -22,35 +22,61 @@ import {
   Getcommentstoblog,
 } from "../controller/comments";
 const router: Router = express.Router();
-import { Isblogexist, Messagereply } from "../middleware/middle";
+import { Isblogexist, Messagereply, SameblogCher } from "../middleware/middle";
 import {
   GetLikestoblog,
   GetallLikes,
   Putlikes,
   RemoveLike,
 } from "../controller/like";
-import { Loginuser, RegisterControllar } from "../controller/registration";
-import { Validatetoken } from "../jwt/jwt";
+import passport from "passport";
+import LocalStrategy from "passport-local";
+import passportJwt from "passport-jwt";
+import Users from "./users";
+import jwt from "jsonwebtoken";
+import { Login, Profile, Register } from "../controller/accountcontroller";
+import { AdminCheck } from "../middleware/admin";
+import image from "../cloudinary/multer";
 
-//// import all the controller function
-// const blogcontroll = require("./../controller/blogcontroll");
+//////////////////////////
 
+///////////////////////////////
 ////GET ALL POST AND POST NEW ALL USE SAME ROUTE
 
-router.route("/blogs").post(Postblog).get(Getallblogs);
+router
+  .route("/blogs")
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    AdminCheck,
+    // SameblogCher,
+    Postblog
+  )
+  .get(Getallblogs);
 
 ///////update INDIVIDUAL POST and remove ALL BASED ON ID
 
 router
   .route("/blog/:id")
-  .patch(Updateblog)
-  .delete(Deleteblogs)
+  .patch(
+    passport.authenticate("jwt", { session: false }),
+    AdminCheck,
+    Updateblog
+  )
+  .delete(
+    passport.authenticate("jwt", { session: false }),
+    AdminCheck,
+    Deleteblogs
+  )
   .get(GetSingleblog);
 
 /////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅coomments section✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 router
   .route("/blog/:id/comments")
-  .post(Isblogexist, Validatetoken, Postcomments);
+  .post(
+    Isblogexist,
+    passport.authenticate("jwt", { session: false }),
+    Postcomments
+  );
 router.route("/blog/:id/comments").get(Isblogexist, Getcommentstoblog);
 router.route("/comments").get(Getallcomments);
 router.route("/comments/:id").get(Singlecomments);
@@ -59,10 +85,7 @@ router.route("/comments/:id").delete(Deletcomments);
 
 ////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROLL MY MESSAGES
-router
-  .route("/message")
-  .post(Validatetoken, Createmessage)
-  .get(Validatetoken, Getallmessage);
+router.route("/message").post(Createmessage).get(Getallmessage);
 router.route("/message/:id/reply").patch(Messagereply, Replymessage);
 ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROL THE LIKES
@@ -72,6 +95,13 @@ router.route("/likes").get(GetallLikes);
 router.route("/likes/:id").delete(RemoveLike);
 
 ////// CONTROLL FOR NEW USER
-router.route("/register").post(RegisterControllar);
-router.route("/login").post(Loginuser);
+router
+  .route("/register")
+  .post(passport.authenticate("signup", { session: false }), Register);
+router
+  .route("/login")
+  .post(passport.authenticate("login", { session: false }), Login);
+router
+  .route("/profile")
+  .get(passport.authenticate("jwt", { session: false }), Profile);
 export default router;

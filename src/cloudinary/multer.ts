@@ -1,49 +1,45 @@
 import multer from "multer";
-import { Request, Response } from "express";
+import { Request } from "express";
+import path from "path";
+import fs from "fs";
 
-//SPECIFIE THE STORAGE ENGINE OF MULTER
+// const image = multer({
+//   storage: multer.diskStorage({}),
+//   fileFilter: (req: any, file: any, cb: any) => {
+//     let ext = path.extname(file.originalname);
+//     if (ext !== ".jpg" && ext !== ".png" && ext != ".jpeg") {
+//       cb(new Error("File is not supported"), false);
+//       return;
+//     }
+//     cb(null, true);
+//   },
+// });
+const localFolder = "src/uploads"; // Specify the local folder where you want to save the file locally
 
-const storage = multer.diskStorage({
-  destination: (
-    req: Request,
-    file: Express.Multer.File,
-    cb: (error: Error | null, destination: string) => void
-  ) => {
-    cb(null, "./uploads");
-  },
-  filename: (
-    req: Request,
-    file: Express.Multer.File,
-    cb: (error: Error | null, filename: string) => void
-  ) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// Check if the local folder exists, create it if not create new one
+if (!fs.existsSync(localFolder)) {
+  fs.mkdirSync(localFolder);
+}
 
-///// MAKE VALIDATION OF IMAGE BEFORE TO UPLOAD
-const fileFilter = (
-  req: Request,
-  file: Express.Multer.File,
-  cb: (error: Error | null, acceptFile: boolean) => void
-) => {
-  const allowedMimeTypes = [
-    "image/jpeg",
-    "image/jpg",
-    "image/png",
-    "image/raw",
-  ];
-  if (allowedMimeTypes.includes(file.mimetype)) {
+const image = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, localFolder);
+    },
+    filename: (req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      const uniqueFilename = Date.now() + "-" + file.originalname;
+      cb(null, uniqueFilename);
+    },
+  }),
+  fileFilter: (req, file, cb: any) => {
+    const ext = path.extname(file.originalname);
+    if (ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg") {
+      cb(new Error("File is not supported"), false);
+      return;
+    }
     cb(null, true);
-  } else {
-    const error: Error = new Error("unsupported file formate");
-    cb(error, false);
-  }
-};
-
-const uploads = multer({
-  storage: storage,
-  limits: { fieldSize: 1024 * 1024 },
-  fileFilter: (req, file, cb) => fileFilter,
+  },
 });
 
-export default uploads;
+export default image;

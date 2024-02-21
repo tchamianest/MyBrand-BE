@@ -37,8 +37,9 @@ const Tokencreate = (user) => {
 };
 exports.Tokencreate = Tokencreate;
 const Validatetoken = (req, res, next) => {
-    const accessToken = req.cookies["access-token"];
-    console.log(req.cookies["access-token"]);
+    console.log(req.cookies);
+    const accessToken = req.cookies["access-token"].Value;
+    console.log(req["Symbol(kHeaders)"]);
     if (!accessToken) {
         return res.status(400).json({ error: "Please first login " });
     }
