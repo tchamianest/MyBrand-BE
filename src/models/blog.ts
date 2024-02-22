@@ -1,19 +1,20 @@
-import { Schema, Document } from "mongoose";
-
 import mongoose from "mongoose";
+import { CommentD } from "./comment";
 
-export interface Iblog extends Document {
+export interface Iblog {
   title: string;
   like: number;
   template: string;
+  comments: CommentD[];
   image_src: string;
   small_description: string;
 }
 
-const schema: Schema = new mongoose.Schema({
+const schema = new mongoose.Schema<Iblog>({
   title: String,
   like: Number,
   template: String,
+  comments: [],
   image_src: String,
   small_description: String,
 });

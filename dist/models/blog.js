@@ -8,6 +8,7 @@ const schema = new mongoose_1.default.Schema({
     title: String,
     like: Number,
     template: String,
+    comments: [],
     image_src: String,
     small_description: String,
 });

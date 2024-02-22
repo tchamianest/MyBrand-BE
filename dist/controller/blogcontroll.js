@@ -14,33 +14,61 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Updateblog = exports.Deleteblogs = exports.GetSingleblog = exports.Getallblogs = exports.Postblog = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
+// import uploads from "../cloudinary/multer";
+const cloudinary_1 = __importDefault(require("../cloudinary/cloudinary"));
+const multer_1 = __importDefault(require("../cloudinary/multer"));
+const upload = multer_1.default;
 const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blog = new blog_1.default({
-            title: req.body.title,
-            like: req.body.like,
-            template: req.body.template,
-            image_src: req.body.image_src,
-            small_description: req.body.small_description,
-        });
-        yield blog.save();
-        res.send(blog);
+        // const blogChecker = Validateblogtopost(req.body);
+        // if (blogChecker.error) {
+        //   return res.status(400).send(blogChecker.error.message);
+        // }
+        upload.single("image")(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+            // console.log(req.body);
+            // console.log(req.file);
+            try {
+                if (err) {
+                    return res.status(400).send({ error: "Error uploading the file" });
+                }
+                if (!req.file)
+                    return res.status(404).send("no req file");
+                console.log(req.file.path);
+                const result = yield cloudinary_1.default.uploader.upload(req.file.path);
+                let imageUrl = "";
+                imageUrl = result.url;
+                // console.log(result);
+                const blog = new blog_1.default({
+                    title: req.body.title,
+                    like: req.body.like,
+                    template: req.body.template,
+                    small_description: req.body.small_description,
+                    image_src: imageUrl,
+                });
+                yield blog.save();
+                return res.status(201).send(blog);
+            }
+            catch (error) {
+                // console.log(error);
+                return res.status(500).send({ error: "Internal server error" });
+            }
+        }));
     }
     catch (error) {
         console.log(error);
+        return res.status(500).send({ error: "Internal server error" });
     }
 });
 exports.Postblog = Postblog;
 const Getallblogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const blogs = yield blog_1.default.find();
-    console.log(blogs);
     res.send(blogs);
 });
 exports.Getallblogs = Getallblogs;
 //// get singleblogs
 const GetSingleblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blogs = yield blog_1.default.findOne({ _id: req.params.id });
+        const blogs = yield blog_1.default.findOne({ _id: req.params.id }).populate("comments");
         res.send(blogs);
     }
     catch (_a) {
@@ -64,7 +92,7 @@ exports.Deleteblogs = Deleteblogs;
 /////UPDATE SINGLE BLOGS
 const Updateblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blogs = (yield blog_1.default.findOne({ _id: req.params.id }));
+        const blogs = yield blog_1.default.findOne({ _id: req.params.id });
         if (!blogs) {
             res.status(404).send({ error: "Post doesn't exist!" });
             return;
