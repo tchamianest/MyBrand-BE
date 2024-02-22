@@ -10,6 +10,7 @@ export const Validateblogtopost = (blogs: Iblog) => {
     template: Joi.string().min(4).required(),
     comments: Joi.any(),
     small_description: Joi.string().min(9).required(),
+    image: Joi.any(),
   });
 
   return BlogcreateSchema.validate(blogs);

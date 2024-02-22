@@ -12,6 +12,7 @@ const Validateblogtopost = (blogs) => {
         template: joi_1.default.string().min(4).required(),
         comments: joi_1.default.any(),
         small_description: joi_1.default.string().min(9).required(),
+        image: joi_1.default.any(),
     });
     return BlogcreateSchema.validate(blogs);
 };

@@ -6,6 +6,7 @@ export interface Iblog {
   like: number;
   template: string;
   comments: CommentD[];
+  image: any;
   image_src: string;
   small_description: string;
 }

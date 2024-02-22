@@ -8,16 +8,15 @@ import image from "../cloudinary/multer";
 const upload = image;
 export const Postblog = async (req: Request, res: Response) => {
   try {
-    // const blogChecker = Validateblogtopost(req.body);
-
-    // if (blogChecker.error) {
-    //   return res.status(400).send(blogChecker.error.message);
-    // }
-
     upload.single("image")(req, res, async (err: any) => {
       // console.log(req.body);
       // console.log(req.file);
       try {
+        const blogChecker = Validateblogtopost(req.body);
+
+        if (blogChecker.error) {
+          return res.status(400).send(blogChecker.error.message);
+        }
         if (err) {
           return res.status(400).send({ error: "Error uploading the file" });
         }

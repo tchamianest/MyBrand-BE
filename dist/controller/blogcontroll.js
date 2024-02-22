@@ -14,20 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Updateblog = exports.Deleteblogs = exports.GetSingleblog = exports.Getallblogs = exports.Postblog = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
+const validation_1 = require("../validation/validation");
 // import uploads from "../cloudinary/multer";
 const cloudinary_1 = __importDefault(require("../cloudinary/cloudinary"));
 const multer_1 = __importDefault(require("../cloudinary/multer"));
 const upload = multer_1.default;
 const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // const blogChecker = Validateblogtopost(req.body);
-        // if (blogChecker.error) {
-        //   return res.status(400).send(blogChecker.error.message);
-        // }
         upload.single("image")(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
             // console.log(req.body);
             // console.log(req.file);
             try {
+                const blogChecker = (0, validation_1.Validateblogtopost)(req.body);
+                if (blogChecker.error) {
+                    return res.status(400).send(blogChecker.error.message);
+                }
                 if (err) {
                     return res.status(400).send({ error: "Error uploading the file" });
                 }
