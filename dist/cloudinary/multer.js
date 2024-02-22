@@ -18,7 +18,7 @@ const fs_1 = __importDefault(require("fs"));
 //   },
 // });
 const localFolder = "src/uploads"; // Specify the local folder where you want to save the file locally
-// Check if the local folder exists, create it if not
+// Check if the local folder exists, create it if not create new one
 if (!fs_1.default.existsSync(localFolder)) {
     fs_1.default.mkdirSync(localFolder);
 }
