@@ -63,18 +63,20 @@ const Postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.Postblog = Postblog;
 const Getallblogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const blogs = yield blog_1.default.find();
-    res.send(blogs);
+    res.status(200).send(blogs);
 });
 exports.Getallblogs = Getallblogs;
 //// get singleblogs
 const GetSingleblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const blogs = yield blog_1.default.findOne({ _id: req.params.id }).populate("comments");
-        res.send(blogs);
+        if (!blogs) {
+            return res.status(404).send("error the blog not exist");
+        }
+        res.status(200).json({ message: "isok we get single blog" }).send(blogs);
     }
     catch (_a) {
         res.status(404);
-        res.send({ error: "Post dosen't exist !" });
     }
 });
 exports.GetSingleblog = GetSingleblog;

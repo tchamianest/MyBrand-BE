@@ -22,7 +22,7 @@ export const Singlecomments = async (req: Request, res: Response) => {
     if (!comment) {
       return res.status(404).send({ error: "comments Post Not Found" });
     }
-    res.send(comment);
+    res.status(200).send(comment);
   } catch (error: any) {
     res.send(error.message);
   }
@@ -94,7 +94,7 @@ export const UpdateComment = async (req: Request, res: Response) => {
     }
 
     await comment.save();
-    res.send(comment);
+    res.status(200).send(comment);
   } catch (error) {
     res.status(404);
     res.send({ error: "Post doesn't exist!" });

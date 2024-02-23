@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const multer_1 = __importDefault(require("multer"));
+// import { Request } from "express";
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 // const image = multer({
@@ -28,7 +29,7 @@ const image = (0, multer_1.default)({
             cb(null, localFolder);
         },
         filename: (req, file, cb) => {
-            const ext = path_1.default.extname(file.originalname);
+            // const ext = path.extname(file.originalname);
             const uniqueFilename = Date.now() + "-" + file.originalname;
             cb(null, uniqueFilename);
         },

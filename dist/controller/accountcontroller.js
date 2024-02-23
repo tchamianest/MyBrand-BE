@@ -42,15 +42,23 @@ const Login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     passport_1.default.authenticate("login", (err, user, info) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (err || !user) {
-                const error = new Error("An error occurred.");
+                const errormessage = info ? info.message : "an error occurred.";
+                const error = new Error(errormessage);
                 return next(error);
             }
             req.login(user, { session: false }, (error) => __awaiter(void 0, void 0, void 0, function* () {
-                if (error)
+                if (error) {
                     return next(error);
-                const body = { _id: user._id, email: user.email };
+                }
+                return res.status(500).json({ error: "good yaje " });
+                const body = {
+                    _id: user._id,
+                    email: user.email,
+                    password: user.password,
+                };
                 const token = Jwt.encode({ user: body }, "TOP_SECRET");
-                return res.json({ token });
+                console.log("kalisa dasa");
+                return res.status(200).json({ token });
             }));
         }
         catch (error) {
@@ -60,7 +68,7 @@ const Login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.Login = Login;
 const Register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
+    res.status(201).json({
         message: "Signup successful",
         user: req.user,
     });
@@ -69,10 +77,11 @@ const Register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.Register = Register;
 const Profile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.user);
-    res.json({
+    res.status(200).json({
         message: "You made it to the secure route",
         user: req.user,
         token: req.query.secret_token,
     });
+    next();
 });
 exports.Profile = Profile;

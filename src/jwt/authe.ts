@@ -36,8 +36,9 @@ passport.use(
     {
       usernameField: "email",
       passwordField: "password",
+      passReqToCallback: true,
     },
-    async (email, password, done) => {
+    async (req, email, password, done) => {
       try {
         console.log(email);
         const user: any = await Users.findOne({ email });
@@ -47,7 +48,7 @@ passport.use(
         }
 
         const validate = bcrypt.compare(password, user.password);
-
+        console.log(validate);
         if (!validate) {
           return done(null, false, { message: "Wrong Password" });
         }

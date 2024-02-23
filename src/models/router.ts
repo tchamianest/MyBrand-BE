@@ -70,13 +70,7 @@ router
   .get(GetSingleblog);
 
 /////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅coomments section✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
-router
-  .route("/blog/:id/comments")
-  .post(
-    Isblogexist,
-    passport.authenticate("jwt", { session: false }),
-    Postcomments
-  );
+router.route("/blog/:id/comments").post(Isblogexist, Postcomments);
 router.route("/blog/:id/comments").get(Isblogexist, Getcommentstoblog);
 router.route("/comments").get(Getallcomments);
 router.route("/comments/:id").get(Singlecomments);
@@ -85,12 +79,22 @@ router.route("/comments/:id").delete(Deletcomments);
 
 ////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROLL MY MESSAGES
-router.route("/message").post(Createmessage).get(Getallmessage);
-router.route("/message/:id/reply").patch(Messagereply, Replymessage);
+router
+  .route("/message")
+  .post(passport.authenticate("jwt", { session: false }), Createmessage)
+  .get(passport.authenticate("jwt", { session: false }), Getallmessage);
+router
+  .route("/message/:id/reply")
+  .patch(
+    Messagereply,
+    passport.authenticate("jwt", { session: false }),
+    AdminCheck,
+    Replymessage
+  );
 ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROL THE LIKES
 router.route("/blog/:id/likes").post(Isblogexist, Putlikes);
-router.route("/blog/:id/likes").get(Isblogexist, GetLikestoblog);
+router.route("/blog/:id/likes").get(GetLikestoblog);
 router.route("/likes").get(GetallLikes);
 router.route("/likes/:id").delete(RemoveLike);
 

@@ -52,7 +52,6 @@ export const GetLikestoblog = async (req: Request, res: Response) => {
     const likes = await Likes.find({ blog_id: blogId });
     res.status(200).send(likes);
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ error: "Internal server error" });
+    res.status(404).send({ error: "Internal server error" });
   }
 };

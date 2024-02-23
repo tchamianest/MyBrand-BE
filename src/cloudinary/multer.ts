@@ -1,5 +1,5 @@
 import multer from "multer";
-import { Request } from "express";
+// import { Request } from "express";
 import path from "path";
 import fs from "fs";
 
@@ -23,16 +23,16 @@ if (!fs.existsSync(localFolder)) {
 
 const image = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (req: any, file, cb) => {
       cb(null, localFolder);
     },
-    filename: (req, file, cb) => {
-      const ext = path.extname(file.originalname);
+    filename: (req: any, file, cb) => {
+      // const ext = path.extname(file.originalname);
       const uniqueFilename = Date.now() + "-" + file.originalname;
       cb(null, uniqueFilename);
     },
   }),
-  fileFilter: (req, file, cb: any) => {
+  fileFilter: (req: any, file, cb: any) => {
     const ext = path.extname(file.originalname);
     if (ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg") {
       cb(new Error("File is not supported"), false);

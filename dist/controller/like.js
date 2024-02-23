@@ -66,8 +66,7 @@ const GetLikestoblog = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(200).send(likes);
     }
     catch (error) {
-        console.log(error);
-        res.status(500).send({ error: "Internal server error" });
+        res.status(404).send({ error: "Internal server error" });
     }
 });
 exports.GetLikestoblog = GetLikestoblog;

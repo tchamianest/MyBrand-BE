@@ -29,9 +29,7 @@ router
     .delete(passport_1.default.authenticate("jwt", { session: false }), admin_1.AdminCheck, blogcontroll_1.Deleteblogs)
     .get(blogcontroll_1.GetSingleblog);
 /////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅coomments section✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
-router
-    .route("/blog/:id/comments")
-    .post(middle_1.Isblogexist, passport_1.default.authenticate("jwt", { session: false }), comments_1.Postcomments);
+router.route("/blog/:id/comments").post(middle_1.Isblogexist, comments_1.Postcomments);
 router.route("/blog/:id/comments").get(middle_1.Isblogexist, comments_1.Getcommentstoblog);
 router.route("/comments").get(comments_1.Getallcomments);
 router.route("/comments/:id").get(comments_1.Singlecomments);
@@ -39,12 +37,17 @@ router.route("/comments/:id").patch(comments_1.UpdateComment);
 router.route("/comments/:id").delete(comments_1.Deletcomments);
 ////✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROLL MY MESSAGES
-router.route("/message").post(Querries_1.Createmessage).get(Querries_1.Getallmessage);
-router.route("/message/:id/reply").patch(middle_1.Messagereply, Querries_1.Replymessage);
+router
+    .route("/message")
+    .post(passport_1.default.authenticate("jwt", { session: false }), Querries_1.Createmessage)
+    .get(passport_1.default.authenticate("jwt", { session: false }), Querries_1.Getallmessage);
+router
+    .route("/message/:id/reply")
+    .patch(middle_1.Messagereply, passport_1.default.authenticate("jwt", { session: false }), admin_1.AdminCheck, Querries_1.Replymessage);
 ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 ///CONTROL THE LIKES
 router.route("/blog/:id/likes").post(middle_1.Isblogexist, like_1.Putlikes);
-router.route("/blog/:id/likes").get(middle_1.Isblogexist, like_1.GetLikestoblog);
+router.route("/blog/:id/likes").get(like_1.GetLikestoblog);
 router.route("/likes").get(like_1.GetallLikes);
 router.route("/likes/:id").delete(like_1.RemoveLike);
 ////// CONTROLL FOR NEW USER

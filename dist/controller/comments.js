@@ -35,7 +35,7 @@ const Singlecomments = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!comment) {
             return res.status(404).send({ error: "comments Post Not Found" });
         }
-        res.send(comment);
+        res.status(200).send(comment);
     }
     catch (error) {
         res.send(error.message);
@@ -102,7 +102,7 @@ const UpdateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             comment.comment = req.body.comment;
         }
         yield comment.save();
-        res.send(comment);
+        res.status(200).send(comment);
     }
     catch (error) {
         res.status(404);

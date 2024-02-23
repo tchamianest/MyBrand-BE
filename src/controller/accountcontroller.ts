@@ -14,18 +14,26 @@ export const Login = async (
   passport.authenticate("login", async (err: any, user: any, info: any) => {
     try {
       if (err || !user) {
-        const error = new Error("An error occurred.");
+        const errormessage = info ? info.message : "an error occurred.";
+        const error = new Error(errormessage);
 
         return next(error);
       }
 
       req.login(user, { session: false }, async (error) => {
-        if (error) return next(error);
+        if (error) {
+          return next(error);
+        }
 
-        const body = { _id: user._id, email: user.email };
+        // return res.status(500).json({ error: "good yaje " });
+        const body = {
+          _id: user._id,
+          email: user.email,
+          password: user.password,
+        };
         const token = Jwt.encode({ user: body }, "TOP_SECRET");
-
-        return res.json({ token });
+        // console.log("kalisa dasa");
+        return res.status(200).json({ token });
       });
     } catch (error) {
       return next(error);
@@ -38,7 +46,7 @@ export const Register = async (
   res: Response,
   next: NextFunction
 ) => {
-  res.json({
+  res.status(201).json({
     message: "Signup successful",
     user: req.user,
   });
@@ -51,9 +59,10 @@ export const Profile = async (
   next: NextFunction
 ) => {
   console.log(req.user);
-  res.json({
+  res.status(200).json({
     message: "You made it to the secure route",
     user: req.user,
     token: req.query.secret_token,
   });
+  next();
 };

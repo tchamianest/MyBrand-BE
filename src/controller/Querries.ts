@@ -15,7 +15,7 @@ export const Createmessage = async (req: Request, res: Response) => {
       reply: "",
     });
     await message.save();
-    res.send(message);
+    res.status(200).send(message);
   } catch (error: any) {
     console.log(error.message);
   }
@@ -24,7 +24,7 @@ export const Createmessage = async (req: Request, res: Response) => {
 export const Getallmessage = async (req: Request, res: Response) => {
   try {
     const message = await Message.find();
-    res.send(message);
+    res.status(400).send(message);
   } catch (error: any) {
     console.log(error.message);
   }
@@ -43,7 +43,7 @@ export const Replymessage = async (req: Request, res: Response) => {
       message.reply = req.body.reply;
     }
     await message.save();
-    res.send(message);
+    res.status(200).send(message);
   } catch (error: any) {
     console.log(error.message);
   }

@@ -52,7 +52,7 @@ export const Postblog = async (req: Request, res: Response) => {
 export const Getallblogs = async (req: Request, res: Response) => {
   const blogs = await Blog.find();
 
-  res.send(blogs);
+  res.status(200).send(blogs);
 };
 
 //// get singleblogs
@@ -61,10 +61,14 @@ export const GetSingleblog = async (req: Request, res: Response) => {
     const blogs = await Blog.findOne({ _id: req.params.id }).populate(
       "comments"
     );
-    res.send(blogs);
+
+    if (!blogs) {
+      return res.status(404).send("error the blog not exist");
+    }
+
+    res.status(200).json({ message: "isok we get single blog" }).send(blogs);
   } catch {
     res.status(404);
-    res.send({ error: "Post dosen't exist !" });
   }
 };
 
@@ -106,7 +110,7 @@ export const Updateblog = async (req: Request, res: Response) => {
     }
 
     await blogs.save();
-    res.send(blogs);
+    res.status(200).send(blogs);
   } catch {
     res.status(404);
     res.send({ error: "Post doesn't exist!" });
