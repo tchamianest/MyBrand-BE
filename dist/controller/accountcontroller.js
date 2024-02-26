@@ -50,14 +50,14 @@ const Login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
                 if (error) {
                     return next(error);
                 }
-                return res.status(500).json({ error: "good yaje " });
+                // return res.status(500).json({ error: "good yaje " });
                 const body = {
                     _id: user._id,
                     email: user.email,
                     password: user.password,
                 };
                 const token = Jwt.encode({ user: body }, "TOP_SECRET");
-                console.log("kalisa dasa");
+                // console.log("kalisa dasa");
                 return res.status(200).json({ token });
             }));
         }

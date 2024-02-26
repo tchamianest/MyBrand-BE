@@ -28,20 +28,28 @@ const Createmessage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             reply: "",
         });
         yield message.save();
-        res.send(message);
+        res.status(200).json({ status: "success", message });
     }
     catch (error) {
-        console.log(error.message);
+        res.status(400).json({
+            status: "Success",
+            message: "fail to create a message",
+            Error: error,
+        });
     }
 });
 exports.Createmessage = Createmessage;
 const Getallmessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const message = yield Querys_1.default.find();
-        res.send(message);
+        res.status(200).json({ status: "Success", message });
     }
     catch (error) {
-        console.log(error.message);
+        res.status(400).json({
+            status: "Success",
+            message: "fail to Get all message",
+            Error: error,
+        });
     }
 });
 exports.Getallmessage = Getallmessage;
@@ -49,17 +57,21 @@ const Replymessage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const message = yield Querys_1.default.findOne({ _id: req.params.id });
         if (!message) {
-            res.status(404).send({ error: "these message are no longer Exist !" });
+            res
+                .status(404)
+                .json({ status: "Fail", error: "these message are no longer Exist !" });
             return;
         }
         if (req.body.reply) {
             message.reply = req.body.reply;
         }
         yield message.save();
-        res.send(message);
+        res.status(200).json({ status: "Success", message });
     }
     catch (error) {
-        console.log(error.message);
+        res
+            .status(400)
+            .json({ status: "Success", message: "fail to reply", Error: error });
     }
 });
 exports.Replymessage = Replymessage;

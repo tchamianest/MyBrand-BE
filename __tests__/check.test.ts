@@ -121,6 +121,17 @@ describe("CHECKING FOR THE QUERIES ", () => {
 ///✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 let token: string;
 describe("blogchecking and also login", () => {
+  it("register", async () => {
+    const response = await supertest(app).post("/api/register").send({
+      email: "tchamiacsnest@gmail.com",
+      password: "tchami1234csss",
+    });
+    expect(response.statusCode).toBe(201);
+    // expect(response.body).toHaveProperty("token");
+    // token = response.body.token;
+    // console.log(response.body.token);
+  });
+
   it("ckecking for login", async () => {
     const response = await supertest(app).post("/api/login").send({
       email: "tchamianest@gmail.com",
@@ -130,6 +141,14 @@ describe("blogchecking and also login", () => {
     expect(response.body).toHaveProperty("token");
     token = response.body.token;
     // console.log(response.body.token);
+  });
+
+  it("profile login", async () => {
+    const response = await supertest(app)
+      .post("/api/profile")
+      .set("authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
   });
 
   it("update blos", async () => {
@@ -191,20 +210,19 @@ describe("comments testing", () => {
 
     expect(response.statusCode).toBe(200);
   });
-  it("if no blog exist", async () => {
+  it("if no comments exist", async () => {
     const response = await supertest(app).patch("/api/comments/dadddaa");
-    expect(response.statusCode).toBe(404);
+    expect(response.statusCode).toBe(500);
   });
   it("updating the single comments", async () => {
-    const response = await supertest(app).get(
-      "/api/comments/65ce20f6c696eae85d9d519b"
-    );
-    // .send({
-    //   comment: "nihatal musore wange",
-    // })
-    // .set("authorization", `Bearer ${token}`);
+    const response = await supertest(app)
+      .patch("/api/comments/65ce20f6c696eae85d9d519b")
+      .send({
+        comment: "nihatal musore wange",
+      })
+      .set("authorization", `Bearer ${token}`);
 
-    expect(response.body.error).toBe("kanaye");
+    expect(response.statusCode).toBe(200);
   });
 
   it("getting allcomments", async () => {

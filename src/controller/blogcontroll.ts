@@ -15,10 +15,16 @@ export const Postblog = async (req: Request, res: Response) => {
         const blogChecker = Validateblogtopost(req.body);
 
         if (blogChecker.error) {
-          return res.status(400).send(blogChecker.error.message);
+          return res.status(400).json({
+            status: "Fail",
+            messgae: "check your input data",
+            AT: blogChecker.error.message,
+          });
         }
         if (err) {
-          return res.status(400).send({ error: "Error uploading the file" });
+          return res
+            .status(400)
+            .json({ status: "Fail", error: "Error uploading the file" });
         }
 
         if (!req.file) return res.status(404).send("no req file");
@@ -37,22 +43,44 @@ export const Postblog = async (req: Request, res: Response) => {
         });
         await blog.save();
 
-        return res.status(201).send(blog);
+        return res.status(201).json({
+          status: "success!",
+          message: "blog created succeful",
+          blogs: blog,
+        });
       } catch (error) {
         // console.log(error);
-        return res.status(500).send({ error: "Internal server error" });
+        return res.status(500).json({
+          status: "Fail",
+          message: "some error happen ",
+          errors: error,
+        });
       }
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).send({ error: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: "Fail", message: "some error happen", error: error });
   }
 };
 
 export const Getallblogs = async (req: Request, res: Response) => {
-  const blogs = await Blog.find();
-
-  res.status(200).send(blogs);
+  try {
+    const blogs = await Blog.find();
+    res.status(200).json({
+      status: "success",
+      counntingAll: blogs.length,
+      message: "getting all blog successful",
+      Blogs: blogs,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Fail",
+      message: "getting all blog Fail",
+      Error: err,
+    });
+  }
 };
 
 //// get singleblogs
@@ -63,12 +91,22 @@ export const GetSingleblog = async (req: Request, res: Response) => {
     );
 
     if (!blogs) {
-      return res.status(404).send("error the blog not exist");
+      return res
+        .status(404)
+        .json({ status: "fail", error: "error the blog not exist" });
     }
 
-    res.status(200).json({ message: "isok we get single blog" }).send(blogs);
-  } catch {
-    res.status(404);
+    res.status(200).json({
+      status: "success",
+      message: "isok we get single blog",
+      blogs: blogs,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "Fail",
+      message: "there is an error  in geting single blog",
+      error: err,
+    });
   }
 };
 
@@ -76,10 +114,15 @@ export const GetSingleblog = async (req: Request, res: Response) => {
 export const Deleteblogs = async (req: Request, res: Response) => {
   try {
     await Blog.deleteOne({ _id: req.params.id });
-    res.status(204).send();
-  } catch {
-    res.status(404);
-    res.send({ error: "Post doesn't exist!" });
+    res
+      .status(204)
+      .json({ status: "success", message: "blog deleted succesufl" });
+  } catch (err) {
+    res.status(404).json({
+      status: "Fail",
+      message: "the blog are not deleted there is error happrn",
+      error: err,
+    });
   }
 };
 /////UPDATE SINGLE BLOGS
@@ -88,7 +131,7 @@ export const Updateblog = async (req: Request, res: Response) => {
     const blogs = await Blog.findOne({ _id: req.params.id });
 
     if (!blogs) {
-      res.status(404).send({ error: "Post doesn't exist!" });
+      res.status(404).json({ status: "fail", error: "blog doesn't exist!" });
       return;
     }
 
@@ -110,10 +153,18 @@ export const Updateblog = async (req: Request, res: Response) => {
     }
 
     await blogs.save();
-    res.status(200).send(blogs);
-  } catch {
+    res.status(200).json({
+      status: "success!",
+      message: "blog updated succeful",
+      Blog: blogs,
+    });
+  } catch (err) {
     res.status(404);
-    res.send({ error: "Post doesn't exist!" });
+    res.json({
+      status: "Fail",
+      message: "the blog are not updated",
+      error: err,
+    });
   }
 };
 

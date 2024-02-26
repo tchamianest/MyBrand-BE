@@ -7,7 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const message = new mongoose_1.default.Schema({
     email: String,
     messages: String,
-    reply: String,
+    reply: { type: String, default: "" },
 });
 const Message = mongoose_1.default.model("message", message);
 exports.default = Message;

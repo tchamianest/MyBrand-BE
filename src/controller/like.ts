@@ -5,9 +5,9 @@ import Blog from "../models/blog";
 export const GetallLikes = async (req: Request, res: Response) => {
   try {
     const Alllikes = await Likes.find();
-    res.status(200).send(Alllikes);
+    res.status(200).json({ status: "Success", Likes: Alllikes });
   } catch (error: any) {
-    res.status(404).send(error.message);
+    res.status(404).json({ status: "Fail", Error: error.message });
   }
 };
 
@@ -17,7 +17,9 @@ export const Putlikes = async (req: Request, res: Response) => {
     const blog = await Blog.findById(blogId);
 
     if (!blog) {
-      return res.status(404).send({ error: "the blogs are not exist" });
+      return res
+        .status(404)
+        .json({ status: "FAil", error: "the blogs are not exist" });
     }
 
     const like: Likeid = new Likes({
@@ -25,9 +27,9 @@ export const Putlikes = async (req: Request, res: Response) => {
       like: req.body.like,
     });
     await like.save();
-    res.status(201).send(like);
+    res.status(201).json({ status: "Success", like });
   } catch (error: any) {
-    res.status(404).send(error.message);
+    res.status(404).json({ status: "Fail", Error: error.message });
   }
 };
 
@@ -37,12 +39,16 @@ export const RemoveLike = async (req: Request, res: Response) => {
     const onelike = await Likes.findById(likeid);
 
     if (!onelike) {
-      return res.status(404).send({ error: "comments Post Not Found" });
+      return res
+        .status(404)
+        .json({ status: "FAil", error: "comments Post Not Found" });
     }
     await Likes.deleteOne({ _id: likeid });
-    res.status(200).send({ message: "Comment deleted successfully" });
+    res
+      .status(200)
+      .json({ status: "success", message: "Comment deleted successfully" });
   } catch (error: any) {
-    res.status(404).send(error.message);
+    res.status(404).json({ status: "Fail", Error: error.message });
   }
 };
 
@@ -50,8 +56,8 @@ export const GetLikestoblog = async (req: Request, res: Response) => {
   try {
     const blogId = req.params.id;
     const likes = await Likes.find({ blog_id: blogId });
-    res.status(200).send(likes);
+    res.status(200).json({ status: "Sucess", likes });
   } catch (error) {
-    res.status(404).send({ error: "Internal server error" });
+    res.status(404).json({ error: "Internal server error" });
   }
 };
