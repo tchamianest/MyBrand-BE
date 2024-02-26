@@ -7,10 +7,12 @@ const mongoose_1 = __importDefault(require("mongoose"));
 require("./jwt/authe");
 const app_1 = __importDefault(require("./app"));
 ///BODY PARSER
+const DB = process.env.MONGO_DB_CONNECT;
+console.log(DB);
 ////CONNECTING TO MY DATABASE
 const PORT = 8000;
 mongoose_1.default
-    .connect("mongodb+srv://tchamianest:ZDKDJ5G7px4pdgbR@cluster0.9cr0mrz.mongodb.net/?retryWrites=true&w=majority")
+    .connect(DB)
     .then(() => {
     app_1.default.listen(PORT, () => {
         console.log("welcome");
