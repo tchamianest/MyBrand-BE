@@ -4,7 +4,6 @@ import "./jwt/authe";
 import app from "./app";
 ///BODY PARSER
 const DB: any = process.env.MONGO_DB_CONNECT;
-console.log(DB);
 ////CONNECTING TO MY DATABASE
 const PORT = 8000;
 mongoose
