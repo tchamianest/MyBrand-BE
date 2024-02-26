@@ -18,10 +18,10 @@ const blog_1 = __importDefault(require("../models/blog"));
 const GetallLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const Alllikes = yield likes_1.default.find();
-        res.status(200).send(Alllikes);
+        res.status(200).json({ status: "Success", Likes: Alllikes });
     }
     catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ status: "Fail", Error: error.message });
     }
 });
 exports.GetallLikes = GetallLikes;
@@ -30,17 +30,19 @@ const Putlikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const blogId = req.params.id;
         const blog = yield blog_1.default.findById(blogId);
         if (!blog) {
-            return res.status(404).send({ error: "the blogs are not exist" });
+            return res
+                .status(404)
+                .json({ status: "FAil", error: "the blogs are not exist" });
         }
         const like = new likes_1.default({
             blog_id: blogId,
             like: req.body.like,
         });
         yield like.save();
-        res.status(201).send(like);
+        res.status(201).json({ status: "Success", like });
     }
     catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ status: "Fail", Error: error.message });
     }
 });
 exports.Putlikes = Putlikes;
@@ -49,13 +51,17 @@ const RemoveLike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const likeid = req.params.id;
         const onelike = yield likes_1.default.findById(likeid);
         if (!onelike) {
-            return res.status(404).send({ error: "comments Post Not Found" });
+            return res
+                .status(404)
+                .json({ status: "FAil", error: "comments Post Not Found" });
         }
         yield likes_1.default.deleteOne({ _id: likeid });
-        res.status(200).send({ message: "Comment deleted successfully" });
+        res
+            .status(200)
+            .json({ status: "success", message: "Comment deleted successfully" });
     }
     catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ status: "Fail", Error: error.message });
     }
 });
 exports.RemoveLike = RemoveLike;
@@ -63,11 +69,10 @@ const GetLikestoblog = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const blogId = req.params.id;
         const likes = yield likes_1.default.find({ blog_id: blogId });
-        res.status(200).send(likes);
+        res.status(200).json({ status: "Sucess", likes });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).send({ error: "Internal server error" });
+        res.status(404).json({ error: "Internal server error" });
     }
 });
 exports.GetLikestoblog = GetLikestoblog;

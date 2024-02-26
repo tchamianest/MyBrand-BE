@@ -20,10 +20,10 @@ const validation_1 = require("../validation/validation");
 const Getallcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const Allcoments = yield comment_1.default.find();
-        res.status(200).send(Allcoments);
+        res.status(200).json({ ststus: "Success", Comments: Allcoments });
     }
     catch (error) {
-        res.send(error.message);
+        res.json({ status: "Fail", Error: error.message });
     }
 });
 exports.Getallcomments = Getallcomments;
@@ -33,12 +33,12 @@ const Singlecomments = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const commentid = req.params.id;
         const comment = yield comment_1.default.findById(commentid);
         if (!comment) {
-            return res.status(404).send({ error: "comments Post Not Found" });
+            return res.status(404).json({ error: "comments Post Not Found" });
         }
-        res.send(comment);
+        res.status(200).send(comment);
     }
     catch (error) {
-        res.send(error.message);
+        res.json({ status: "Fail", Error: error.message });
     }
 });
 exports.Singlecomments = Singlecomments;
@@ -48,13 +48,15 @@ const Deletcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const commentid = req.params.id;
         const comment = yield comment_1.default.findById(commentid);
         if (!comment) {
-            return res.status(404).send({ error: "comments Post Not Found" });
+            return res.status(404).json({ error: "comments Post Not Found" });
         }
         yield comment_1.default.deleteOne({ _id: commentid });
-        res.status(200).send({ message: "Comment deleted successfully" });
+        res
+            .status(200)
+            .json({ status: "success", message: "Comment deleted successfully" });
     }
     catch (error) {
-        res.status(404).send(error.message);
+        res.status(404).json({ status: "Fail", Error: error.message });
     }
 });
 exports.Deletcomments = Deletcomments;
@@ -62,12 +64,16 @@ const Postcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const commentscheker = (0, validation_1.commentsvalidation)(req.body);
         if (commentscheker.error) {
-            return res.status(400).send(commentscheker.error.message);
+            return res
+                .status(400)
+                .json({ status: "Fail", Error: commentscheker.error.message });
         }
         const blogId = req.params.id;
         const blog = yield blog_1.default.findById(blogId);
         if (!blog) {
-            return res.status(404).send({ error: "blog Post Not Found" });
+            return res
+                .status(404)
+                .json({ ststus: "Fail", message: "blog Post Not Found" });
         }
         // const commenta: CommentD = new Comments({
         //   names: req.body.name,
@@ -80,7 +86,7 @@ const Postcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             comment: req.body.comment,
         });
         yield commenta.save();
-        res.status(201).send(commenta);
+        res.status(201).json({ status: "Success", Comment: commenta });
     }
     catch (error) {
         console.log(error);
@@ -90,23 +96,25 @@ exports.Postcomments = Postcomments;
 ////UPDATE COMMENTS
 const UpdateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { commentId } = req.params;
-        const comment = yield comment_1.default.findById(commentId);
+        const commentId = req.params.id;
+        const comment = yield comment_1.default.findOne({ _id: commentId });
         if (!comment) {
-            return res.status(404).send({ error: "Blog post not found!" });
-        }
-        if (req.body.names) {
-            comment.names = req.body.name;
+            return res
+                .status(404)
+                .json({ status: "fail", message: "Comment not found!" });
         }
         if (req.body.comment) {
             comment.comment = req.body.comment;
         }
         yield comment.save();
-        res.send(comment);
+        res.status(200).json({ status: "Success", UpdatedComments: comment });
     }
     catch (error) {
-        res.status(404);
-        res.send({ error: "Post doesn't exist!" });
+        res.status(500).json({
+            status: "Fail",
+            message: "Error saving the comment!",
+            Error: error,
+        });
     }
 });
 exports.UpdateComment = UpdateComment;
@@ -114,11 +122,14 @@ const Getcommentstoblog = (req, res) => __awaiter(void 0, void 0, void 0, functi
     try {
         const blogId = req.params.id;
         const comments = yield comment_1.default.find({ blog_id: blogId });
-        res.status(200).send(comments);
+        res
+            .status(200)
+            .json({ status: "success", Allsingleblogcomments: comments });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).send({ error: "Internal server error" });
+        res
+            .status(500)
+            .json({ status: "Fail", message: "Internal server error", Error: error });
     }
 });
 exports.Getcommentstoblog = Getcommentstoblog;
