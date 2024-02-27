@@ -118,7 +118,7 @@
           },
           {
             "in": "formData",
-            "name": "Template",
+            "name": "template",
             "type": "string",
             "description": "Enter template"
           },
