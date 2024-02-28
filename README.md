@@ -1,6 +1,7 @@
 [![codecov](https://codecov.io/github/tchamianest/MyBrand-BE/graph/badge.svg?token=ZQK3VYHML4)](https://codecov.io/github/tchamianest/MyBrand-BE)
 [![Node.js CI](https://github.com/tchamianest/MyBrand-BE/actions/workflows/testing.yml/badge.svg)](https://github.com/tchamianest/MyBrand-BE/actions/workflows/testing.yml)
 
+
 # back-endblogs of All my portifolio back end od MyBrand-BE
 
 # Introduction
@@ -84,4 +85,5 @@ Method: POST
 ##### LOGIN
 
 Endpoint: /api/register
-Method: POST
+Method: POSTs 
+=======
