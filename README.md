@@ -12,5 +12,5 @@ Welcome to the heart of MyBrand-BE! This repository serves as the backbone of my
 **A:** If you're new to GitHub and just want to download the entire code, hit the green button saying "Code", and then choose the "Download ZIP" option. If you can't see the button (on mobile), use [this link](https://github.com/tchamianest/MyBrand-BE.git) instead.
 
 # List of required packages.
-##### To run <b>npm start></b> 
+##### To run <h1>npm start</h1> 
 ##### Run test using jest <npm test>
