@@ -15,4 +15,5 @@ Welcome to the heart of MyBrand-BE! This repository serves as the backbone of my
  <h4>npm start</h4> 
  <h4>npm test</h4> 
 
-#
+# Codecov  statistics Link
+<https://app.codecov.io/gh/tchamianest/MyBrand-BE>
