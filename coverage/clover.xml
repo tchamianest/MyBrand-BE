@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709109579387" clover="3.2.0">
-  <project timestamp="1709109579387" name="All files">
-    <metrics statements="375" coveredstatements="273" conditionals="48" coveredconditionals="20" methods="71" coveredmethods="56" elements="494" coveredelements="349" complexity="0" loc="375" ncloc="375" packages="7" files="18" classes="18"/>
+<coverage generated="1709119552510" clover="3.2.0">
+  <project timestamp="1709119552510" name="All files">
+    <metrics statements="375" coveredstatements="275" conditionals="48" coveredconditionals="19" methods="71" coveredmethods="56" elements="494" coveredelements="350" complexity="0" loc="375" ncloc="375" packages="7" files="18" classes="18"/>
     <package name="src">
       <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="app.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\app.ts">
@@ -54,7 +54,7 @@
       </file>
     </package>
     <package name="src.controller">
-      <metrics statements="203" coveredstatements="137" conditionals="27" coveredconditionals="11" methods="48" coveredmethods="40"/>
+      <metrics statements="203" coveredstatements="139" conditionals="27" coveredconditionals="10" methods="48" coveredmethods="40"/>
       <file name="Querries.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\controller\Querries.ts">
         <metrics statements="28" coveredstatements="21" conditionals="3" coveredconditionals="1" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
@@ -116,7 +116,7 @@
         <line num="67" count="1" type="stmt"/>
       </file>
       <file name="blogcontroll.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\controller\blogcontroll.ts">
-        <metrics statements="62" coveredstatements="38" conditionals="10" coveredconditionals="6" methods="12" coveredmethods="10"/>
+        <metrics statements="62" coveredstatements="39" conditionals="10" coveredconditionals="6" methods="12" coveredmethods="10"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -127,11 +127,11 @@
         <line num="11" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="17" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="17" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="24" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="31" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
@@ -239,7 +239,7 @@
         <line num="119" count="0" type="stmt"/>
       </file>
       <file name="like.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\controller\like.ts">
-        <metrics statements="32" coveredstatements="25" conditionals="2" coveredconditionals="1" methods="8" coveredmethods="8"/>
+        <metrics statements="32" coveredstatements="26" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -261,10 +261,10 @@
         <line num="37" count="1" type="stmt"/>
         <line num="38" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="41" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
+        <line num="41" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
