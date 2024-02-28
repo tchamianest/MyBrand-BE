@@ -18,7 +18,7 @@
     }
   },
   "security": [{ "Bearer": [] }],
-  "host": "127.0.0.1:8000",
+  "host": "https://mybrand-be-7tft.onrender.com",
   "basePath": "/api",
   "tags": [
     {
