@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon  dist/index.js",
+    "start": "ts-node-dev  src/index.ts",
     "test": "jest --coverage"
   },
   "author": "tchami",
