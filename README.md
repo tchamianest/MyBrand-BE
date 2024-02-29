@@ -1,14 +1,13 @@
 [![codecov](https://codecov.io/github/tchamianest/MyBrand-BE/graph/badge.svg?token=ZQK3VYHML4)](https://codecov.io/github/tchamianest/MyBrand-BE)
 [![Node.js CI](https://github.com/tchamianest/MyBrand-BE/actions/workflows/testing.yml/badge.svg)](https://github.com/tchamianest/MyBrand-BE/actions/workflows/testing.yml)
 
-
 # back-endblogs of All my portifolio back end od MyBrand-BE
 
 # Introduction
 
 Welcome to the heart of MyBrand-BE! This repository serves as the backbone of my portfolio backend, showcasing the craftsmanship and design philosophy that defines portifolio. Here, you'll find both the starting point and the final result for each section and project, meticulously crafted to align with our vision.
 
-🚨 **\_Please read the following  carefully before starting ** 🚨
+🚨 **\_Please read the following carefully before starting ** 🚨
 
 ### Q1: How do I download the files?
 
@@ -38,52 +37,52 @@ Method: POST
 
 ###### Geting single blogs Item
 
-Endpoint: /api/portfolio/{id}
+Endpoint: /api/portfolio/{id}</br>
 Method: GET
 
 ###### Geting single blogs Item
 
-Endpoint: /api/blog/:id
+Endpoint: /api/blog/:id<br/>
 Method: PATCH
 
 ###### Delete single blogs Item
 
-Endpoint: /api/blogs/:id
+Endpoint: /api/blogs/:id<br/>
 Method: DELETE
 
 ### 3. Query
 
 ##### send message
 
-Endpoint: /api/message
+Endpoint: /api/message<br/>
 Method: POST
 
 ##### Reply message
 
-Endpoint: /api/user/message
+Endpoint: /api/user/message<br/>
 Method: POST
 
 ### 3. Likes
 
 ##### put like
 
-Endpoint: /api/blog/blog_id/likes
+Endpoint: /api/blog/blog_id/likes<br/>
 Method: POST
 
 ##### get all likes
 
-Endpoint: /api/likes
+Endpoint: /api/likes<br/>
 Method: GET
 
 ### 3. User
 
 ##### Register
 
-Endpoint: /api/register
+Endpoint: /api/register <br/>
 Method: POST
 
 ##### LOGIN
 
-Endpoint: /api/register
-Method: POSTs 
+Endpoint: /api/register </br>
+Method: POSTs
 =======
