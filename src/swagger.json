@@ -142,7 +142,7 @@
       }
     },
 
-    "/blog/:id": {
+    "/blog/{id}": {
       "parameters": [
         {
           "name": "id",
@@ -234,7 +234,7 @@
         }
       }
     },
-    "/message/:id/reply": {
+    "/message/{id}/reply": {
       "summary": "reply message",
       "tags": ["Message"],
       "parameters": [
@@ -272,7 +272,7 @@
         }
       }
     },
-    "/blog/:id/likes": {
+    "/blog/{id}/likes": {
       "summary": "add new likes",
       "tags": ["Likes"],
       "parameters": [
@@ -333,7 +333,7 @@
         }
       }
     },
-    "/likes/:id": {
+    "/likes/{id}": {
       "delete": {
         "tags": ["Likes"],
         "summary": "remove one like ",
