@@ -8,7 +8,7 @@
 
 Welcome to the heart of MyBrand-BE! This repository serves as the backbone of my portfolio backend, showcasing the craftsmanship and design philosophy that defines portifolio. Here, you'll find both the starting point and the final result for each section and project, meticulously crafted to align with our vision.
 
-🚨 **\_Please read the following Frequently Asked Questions (FAQ) carefully before starting ** 🚨
+🚨 **\_Please read the following  carefully before starting ** 🚨
 
 ### Q1: How do I download the files?
 
