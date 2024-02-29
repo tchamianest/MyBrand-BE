@@ -43,9 +43,11 @@ export const Replymessage = async (req: Request, res: Response) => {
     const message = await Message.findOne({ _id: req.params.id });
 
     if (!message) {
-      return res
+      res
         .status(404)
         .json({ status: "Fail", error: "these message are no longer Exist !" });
+
+      return;
     }
 
     if (req.body.reply) {
