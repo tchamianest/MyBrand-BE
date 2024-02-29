@@ -76,7 +76,7 @@ const Register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.Register = Register;
 const Profile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.user);
+    // console.log(req.user);
     res.status(200).json({
         message: "You made it to the secure route",
         user: req.user,

@@ -40,7 +40,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        console.log(email);
+        // console.log(email);
         const user: any = await Users.findOne({ email });
 
         if (!user) {
@@ -48,7 +48,7 @@ passport.use(
         }
 
         const validate = bcrypt.compare(password, user.password);
-        console.log(validate);
+        // console.log(validate);
         if (!validate) {
           return done(null, false, { message: "Wrong Password" });
         }

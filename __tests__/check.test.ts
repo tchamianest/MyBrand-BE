@@ -8,7 +8,7 @@ import passport from "passport";
 
 import mongoose from "mongoose";
 import Comments from "../src/models/comment";
-
+import Blog from "../src/models/blog";
 mongoose.Promise = global.Promise;
 const mongo = process.env.MONGO_DB_CONNECT;
 
@@ -30,11 +30,21 @@ describe("grouping testing", () => {
     expect(response.statusCode).toBe(404);
   });
 
+  //creating blog for testing
+  it("testing blog", async () => {
+    const blogs = {
+      title: "best articles from anest",
+      like: 10,
+      template: "haha",
+      small_description: "donts make people smille",
+    };
+    const testingblog = await Blog.create(blogs);
+    // console.log(testingblog._id);
+  });
   // getting all broges
   it("getting all the blogs", async () => {
     const response = await supertest(app).get("/api/blogs");
     fisrt_blog = response.body.Blogs[0]._id;
-    console.log(fisrt_blog);
     expect(response.status).toBe(200);
   });
 
@@ -99,7 +109,7 @@ let token: string;
 describe("blogchecking and also login", () => {
   it("register", async () => {
     const response = await supertest(app).post("/api/register").send({
-      email: "kalisat@gmail.com",
+      email: "kalisahddddddst@gmail.com",
       password: "sdndklsns",
     });
     expect(response.statusCode).toBe(500);
@@ -116,7 +126,6 @@ describe("blogchecking and also login", () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty("token");
     token = response.body.token;
-    console.log(token);
     // console.log(response.body.token);
   });
 
@@ -130,7 +139,7 @@ describe("blogchecking and also login", () => {
 
   it("update blos", async () => {
     const response = await supertest(app)
-      .patch("/api/blog/65cbb3623c48313d743901cf")
+      .patch(`/api/blog/${fisrt_blog}`)
 
       .send({
         title: "update blogs",
@@ -145,6 +154,15 @@ describe("blogchecking and also login", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  it("update blog which are not exist", async () => {
+    const response = await supertest(app)
+      .patch("/api/blog/c48313d743901cfsff")
+
+      .set("authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(404);
+  });
+
   it("create blog ", async () => {
     const response = await supertest(app)
       .post("/api/blogs")
@@ -156,6 +174,8 @@ describe("blogchecking and also login", () => {
         small_description: "donts make people smille",
       })
       .set("authorization", `Bearer ${token}`);
+    // .set("contentType", "application/octet-stream")
+    // .attach("uploadedImage", "./image/R.jpg");
 
     expect(response.statusCode).toBe(404);
   });
@@ -165,20 +185,21 @@ describe("blogchecking and also login", () => {
       .get("/api/profile")
       .set("authorization", `Bearer ${token}`);
 
-    console.log(response.body.message);
+    // console.log(response.body.message);
     expect(response.body.message).toContain("You made it to the secure route");
   });
 });
-
+let singlecomments: any;
 describe("comments testing", () => {
   it("geting allcomments", async () => {
     const response = await supertest(app).get("/api/comments");
     expect(response.statusCode).toBe(200);
+    singlecomments = response.body.Comments[0]._id;
   });
 
   it("geting the single comments", async () => {
     const response = await supertest(app).get(
-      "/api/comments/65ccb97852d64533d0cc0e3b"
+      `/api/comments/${singlecomments}`
     );
 
     expect(response.statusCode).toBe(200);
@@ -189,7 +210,7 @@ describe("comments testing", () => {
   });
   it("updating the single comments", async () => {
     const response = await supertest(app)
-      .patch("/api/comments/65ce20f6c696eae85d9d519b")
+      .patch(`/api/comments/${singlecomments}`)
       .send({
         comment: "nihatal musore wange",
       })
@@ -202,15 +223,37 @@ describe("comments testing", () => {
     const response = await supertest(app).get("/api/comments");
     expect(response.statusCode).toBe(200);
   });
+  it("getting al bcomments of single bllog", async () => {
+    const response = await supertest(app).get(
+      `/api/blog/${fisrt_blog}/comments`
+    );
+    expect(response.statusCode).toBe(200);
+  });
 
   it("Post comments", async () => {
     const response = await supertest(app)
-      .post("/api/blog/65cbb3623c48313d743901cf/comments")
+      .post(`/api/blog/${fisrt_blog}/comments`)
       .send({
         name: "kalisa daniel mafene",
         comment: "nihatal musore wange",
       });
     expect(response.status).toBe(201);
+  });
+
+  it("delete comments", async () => {
+    const response = await supertest(app)
+      .delete(`/api/comments/${singlecomments}`)
+      .set("authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(200);
+    console.log(singlecomments);
+  });
+
+  it("delete blogs", async () => {
+    const response = await supertest(app)
+      .delete(`/api/blog/${fisrt_blog}`)
+      .set("authorization", `Bearer ${token}`);
+    // console.log(token);
+    expect(response.statusCode).toBe(204);
   });
 });
 
@@ -240,5 +283,14 @@ describe("Querries", () => {
       })
       .set("authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
+  });
+  it("reply messsage not exist", async () => {
+    const response = await supertest(app)
+      .patch("/api/message/65cf48sdsxc/reply")
+      .send({
+        reply: "urahaze kavune umuheto",
+      })
+      .set("authorization", `Bearer ${token}`);
+    expect(response.status).toBe(400);
   });
 });

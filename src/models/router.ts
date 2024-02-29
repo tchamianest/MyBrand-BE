@@ -22,7 +22,7 @@ import {
   Getcommentstoblog,
 } from "../controller/comments";
 const router: Router = express.Router();
-import { Isblogexist, Messagereply, SameblogCher } from "../middleware/middle";
+import { Isblogexist, Messagereply } from "../middleware/middle";
 import {
   GetLikestoblog,
   GetallLikes,

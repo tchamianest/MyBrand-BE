@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Messagereply = exports.SameblogCher = exports.Isblogexist = void 0;
+exports.Messagereply = exports.Isblogexist = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
 const Querys_1 = __importDefault(require("../models/Querys"));
 const Isblogexist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,26 +32,6 @@ const Isblogexist = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.Isblogexist = Isblogexist;
-const SameblogCher = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const blogId = req.body.title;
-        console.log(blogId);
-        const blog = yield blog_1.default.findOne({ title: blogId });
-        console.log(blog);
-        if (!blog) {
-            next();
-        }
-        else {
-            return res
-                .status(404)
-                .send({ error: "there athor same blog please change the data" });
-        }
-    }
-    catch (error) {
-        return res.status(400).send(error.message);
-    }
-});
-exports.SameblogCher = SameblogCher;
 const Messagereply = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const message = yield Querys_1.default.findOne({ _id: req.params.id });

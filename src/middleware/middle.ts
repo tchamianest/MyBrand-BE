@@ -22,27 +22,6 @@ export const Isblogexist = async (
     return res.status(400).send(error.message);
   }
 };
-export const SameblogCher = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const blogId = req.body.title;
-    console.log(blogId);
-    const blog = await Blog.findOne({ title: blogId });
-    console.log(blog);
-    if (!blog) {
-      next();
-    } else {
-      return res
-        .status(404)
-        .send({ error: "there athor same blog please change the data" });
-    }
-  } catch (error: any) {
-    return res.status(400).send(error.message);
-  }
-};
 
 export const Messagereply = async (
   req: Request,

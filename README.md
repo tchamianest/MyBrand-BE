@@ -85,4 +85,5 @@ Method: POST
 
 Endpoint: /api/register </br>
 Method: POSTs
-=======
+
+### 3. Front-End link for the API
