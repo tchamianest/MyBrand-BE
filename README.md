@@ -33,8 +33,8 @@ All endpoints, except user registration, getting alllog ,getting all likes and a
 
 ###### Create blogs Item
 
--Endpoint: /api/blogs
--Method: POST
+Endpoint: /api/blogs <br/>
+Method: POST
 
 ###### Geting single blogs Item
 
