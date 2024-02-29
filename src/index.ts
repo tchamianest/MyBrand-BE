@@ -2,17 +2,21 @@ import mongoose from "mongoose";
 
 import "./jwt/authe";
 import app from "./app";
-///BODY PARSER
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
+import { resolve } from "path";
 
+///BODY PARSER
+const DB: any = process.env.MONGO_DB_CONNECT;
 ////CONNECTING TO MY DATABASE
-const PORT = 8000;
+const PORT: any = 8000;
 mongoose
-  .connect(
-    "mongodb+srv://tchamianest:ZDKDJ5G7px4pdgbR@cluster0.9cr0mrz.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(DB)
   .then(() => {
     app.listen(PORT, () => {
       console.log("welcome");
+
+      app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     });
   })
 

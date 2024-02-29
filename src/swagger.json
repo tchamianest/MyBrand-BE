@@ -1,0 +1,446 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Tchami Ernest API Blog Docs",
+    "description": "A minimal and easy to follow example of what you need to create CRUD opeartion",
+    "license": {
+      "name": "MIT",
+      "url": "https//opensource.org/license/MIt"
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "to Enter The authentication code "
+    }
+  },
+  "security": [{ "Bearer": [] }],
+
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Blogs",
+      "description": "API for my blogs system"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": ["A Users"],
+        "summary": "create new  user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "sign up new user",
+            "schema": { "$ref": "#/definitions/user" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successs"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "404": {
+            "description": "Invalid input data imail exist"
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "tags": ["A Users"],
+        "summary": "login to a  user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user login",
+            "schema": { "$ref": "#/definitions/UserLogin" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successs"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "404": {
+            "description": "Invalid input data imail exist"
+          }
+        }
+      }
+    },
+
+    "/blogs": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Get all cats in system",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Create a new blog in API system",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "image",
+            "type": "file",
+            "description": "blog that we want to Create"
+          },
+          {
+            "in": "formData",
+            "name": "title",
+            "type": "string",
+            "description": "Enter title"
+          },
+          {
+            "in": "formData",
+            "name": "like",
+            "type": "string",
+            "description": "Enter likes"
+          },
+          {
+            "in": "formData",
+            "name": "template",
+            "type": "string",
+            "description": "Enter template"
+          },
+          {
+            "in": "formData",
+            "name": "small_description",
+            "type": "string",
+            "description": "Enter small description"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/cat" }
+          },
+          "400": {
+            "description": "Fail . bad post dat"
+          }
+        }
+      }
+    },
+
+    "/blog/:id": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "the Id of blog we want to receive",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [" single Blogs"],
+        "summary": "getting the single blogs",
+        "responses": {
+          "200": {
+            "description": "success",
+            "schama": {
+              "$ref": "#/definitions/blog"
+            }
+          },
+          "404": {
+            "description": "Fail to get blog"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update the blog with id",
+        "tags": [" single Blogs"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "blog that we want to Update",
+            "schema": {
+              "$ref": "#/definitions/blog"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "updated",
+            "schema": { "$ref": "#/definitions/blog" }
+          },
+          "404": {
+            "description": "update Fail"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete single blogs",
+        "tags": ["single Blogs"],
+        "responses": {
+          "204": {
+            "description": "deleted😉",
+            "schema": { "$ref": "#/definitions/blog" }
+          },
+          "404": {
+            "description": "Error happen"
+          }
+        }
+      }
+    },
+    "/message": {
+      "post": {
+        "summary": "Send message",
+        "tags": ["Message"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "string",
+            "required": true,
+            "description": "send message ",
+            "schema": {
+              "$ref": "#/definitions/message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schama": {
+              "$ref": "#/definitions/message"
+            }
+          },
+          "400": {
+            "description": "fail to send message please login"
+          }
+        }
+      }
+    },
+    "/message/:id/reply": {
+      "summary": "reply message",
+      "tags": ["Message"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Id of message to reply",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": ["Message"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Reply message",
+            "schema": {
+              "$ref": "#/definitions/messagereply"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/message"
+            }
+          },
+          "404": {
+            "description": "message are not repled"
+          }
+        }
+      }
+    },
+    "/blog/:id/likes": {
+      "summary": "add new likes",
+      "tags": ["Likes"],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "Blog id",
+          "required": true,
+          "description": "add like nased on blog",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": ["Likes"],
+        "summary": "add new likes to blog",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "post new comment for blog ",
+            "schema": {
+              "$ref": "#/definitions/likes"
+            }
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Likes"],
+        "summary": "all like to one blog",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/likes"
+            }
+          },
+          "400": {
+            "description": "bad request Check the blog id "
+          }
+        }
+      }
+    },
+    "/likes": {
+      "get": {
+        "tags": ["Likes"],
+        "summary": "get all comments for all blogs",
+
+        "responses": {
+          "200": {
+            "description": "Ok ",
+            "schema": {
+              "$ref": "#/definitions/likes"
+            }
+          },
+          "400": {
+            "description": " request Fail to get all likes "
+          }
+        }
+      }
+    },
+    "/likes/:id": {
+      "delete": {
+        "tags": ["Likes"],
+        "summary": "remove one like ",
+        "responses": {
+          "200": {
+            "description": "like deleted succefull"
+          },
+          "400": {
+            "description": "Fail to delete like check Id "
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "like": {
+          "type": "string"
+        },
+        "template": {
+          "type": "boolean"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "image_src": {
+          "type": "string"
+        },
+        "small_description": {
+          "type": "string"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "comments": {
+      "type": "object",
+      "properties": {
+        "blog_id": {
+          "type": "string"
+        },
+        "names": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "likes": {
+      "type": "object",
+      "properties": {
+        "blog_id": {
+          "type": "string"
+        },
+        "like": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "messages": {
+          "type": "string"
+        }
+      }
+    },
+    "messagereply": {
+      "type": "object",
+      "properties": {
+        "reply": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
