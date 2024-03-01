@@ -38,13 +38,13 @@ passport_1.default.use("login", new passport_local_1.Strategy({
     passReqToCallback: true,
 }, (req, email, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(email);
+        // console.log(email);
         const user = yield users_1.default.findOne({ email });
         if (!user) {
             return done(null, false, { message: "User not found" });
         }
         const validate = bcrypt_1.default.compare(password, user.password);
-        console.log(validate);
+        // console.log(validate);
         if (!validate) {
             return done(null, false, { message: "Wrong Password" });
         }

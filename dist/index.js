@@ -40,6 +40,7 @@ mongoose_1.default
     .then(() => {
     app_1.default.listen(PORT, () => {
         console.log("welcome");
+        //kalisa daniel
         app_1.default.use("/swagger", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocument));
     });
 })

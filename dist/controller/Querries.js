@@ -57,10 +57,9 @@ const Replymessage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const message = yield Querys_1.default.findOne({ _id: req.params.id });
         if (!message) {
-            res
+            return res
                 .status(404)
                 .json({ status: "Fail", error: "these message are no longer Exist !" });
-            return;
         }
         if (req.body.reply) {
             message.reply = req.body.reply;
@@ -70,7 +69,7 @@ const Replymessage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     catch (error) {
         res
-            .status(400)
+            .status(404)
             .json({ status: "Success", message: "fail to reply", Error: error });
     }
 });

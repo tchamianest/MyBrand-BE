@@ -46,6 +46,7 @@ export const Replymessage = async (req: Request, res: Response) => {
       res
         .status(404)
         .json({ status: "Fail", error: "these message are no longer Exist !" });
+
       return;
     }
 
@@ -56,7 +57,7 @@ export const Replymessage = async (req: Request, res: Response) => {
     res.status(200).json({ status: "Success", message });
   } catch (error: any) {
     res
-      .status(400)
+      .status(404)
       .json({ status: "Success", message: "fail to reply", Error: error });
   }
 };
