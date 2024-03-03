@@ -1,11 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import passport from "passport";
+import cors from "cors";
 import router from "./models/router";
 import "./jwt/authe";
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 passport.initialize();
 app.use("/api", router);
