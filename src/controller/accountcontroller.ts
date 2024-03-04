@@ -30,10 +30,11 @@ export const Login = async (
           _id: user._id,
           email: user.email,
           password: user.password,
+          types: user.type,
         };
         const token = Jwt.encode({ user: body }, "TOP_SECRET");
         // console.log("kalisa dasa");
-        return res.status(200).json({ token });
+        return res.status(200).json({ token: token, type: user.type });
       });
     } catch (error) {
       return next(error);
