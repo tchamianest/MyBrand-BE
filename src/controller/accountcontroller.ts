@@ -34,6 +34,7 @@ export const Login = async (
         };
         const token = Jwt.encode({ user: body }, "TOP_SECRET");
         // console.log("kalisa dasa");
+        //change the output
         return res.status(200).json({ token: token, type: user.type });
       });
     } catch (error) {
