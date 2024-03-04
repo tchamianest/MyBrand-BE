@@ -81,7 +81,7 @@ router.route("/comments/:id").delete(Deletcomments);
 ///CONTROLL MY MESSAGES
 router
   .route("/message")
-  .post(passport.authenticate("jwt", { session: false }), Createmessage)
+  .post(Createmessage)
   .get(passport.authenticate("jwt", { session: false }), Getallmessage);
 router
   .route("/message/:id/reply")
