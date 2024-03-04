@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709294636428" clover="3.2.0">
-  <project timestamp="1709294636429" name="All files">
-    <metrics statements="361" coveredstatements="287" conditionals="46" coveredconditionals="19" methods="69" coveredmethods="62" elements="476" coveredelements="368" complexity="0" loc="361" ncloc="361" packages="7" files="18" classes="18"/>
+<coverage generated="1709557587928" clover="3.2.0">
+  <project timestamp="1709557587928" name="All files">
+    <metrics statements="363" coveredstatements="289" conditionals="46" coveredconditionals="19" methods="69" coveredmethods="62" elements="478" coveredelements="370" complexity="0" loc="363" ncloc="363" packages="7" files="18" classes="18"/>
     <package name="src">
-      <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="17" coveredstatements="17" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="app.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\app.ts">
-        <metrics statements="15" coveredstatements="15" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <metrics statements="17" coveredstatements="17" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.cloudinary">
@@ -303,9 +305,9 @@
         <line num="56" count="2" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
-        <line num="70" count="8" type="stmt"/>
-        <line num="71" count="8" type="stmt"/>
-        <line num="72" count="8" type="stmt"/>
+        <line num="70" count="7" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
+        <line num="72" count="7" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
         <line num="79" count="1" type="stmt"/>
         <line num="85" count="0" type="stmt"/>

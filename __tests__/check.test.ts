@@ -44,7 +44,7 @@ describe("grouping testing", () => {
   // getting all broges
   it("getting all the blogs", async () => {
     const response = await supertest(app).get("/api/blogs");
-    fisrt_blog = response.body.Blogs[0]._id;
+    fisrt_blog = response.body.Blogs[response.body.Blogs.length - 1]._id;
     expect(response.status).toBe(200);
   });
 
