@@ -20,6 +20,9 @@ passport.use(
 
         if (isuserexist)
           return done("the user is exist try to use other email");
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+        password = hashPassword;
         const user = await Users.create({ email, password });
 
         return done(null, user);
@@ -46,9 +49,9 @@ passport.use(
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
-
-        const validate = bcrypt.compare(password, user.password);
-        // console.log(validate);
+        // console.log(email);
+        const validate = await bcrypt.compare(password, user.password);
+        console.log(validate);
         if (!validate) {
           return done(null, false, { message: "Wrong Password" });
         }
