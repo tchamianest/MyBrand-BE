@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709557587928" clover="3.2.0">
-  <project timestamp="1709557587928" name="All files">
-    <metrics statements="363" coveredstatements="289" conditionals="46" coveredconditionals="19" methods="69" coveredmethods="62" elements="478" coveredelements="370" complexity="0" loc="363" ncloc="363" packages="7" files="18" classes="18"/>
+<coverage generated="1709629166914" clover="3.2.0">
+  <project timestamp="1709629166914" name="All files">
+    <metrics statements="367" coveredstatements="290" conditionals="46" coveredconditionals="19" methods="69" coveredmethods="62" elements="482" coveredelements="371" complexity="0" loc="367" ncloc="367" packages="7" files="18" classes="18"/>
     <package name="src">
       <metrics statements="17" coveredstatements="17" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="app.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\app.ts">
@@ -104,17 +104,17 @@
         <line num="24" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
       </file>
       <file name="blogcontroll.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\controller\blogcontroll.ts">
         <metrics statements="62" coveredstatements="44" conditionals="10" coveredconditionals="6" methods="12" coveredmethods="12"/>
@@ -276,9 +276,9 @@
       </file>
     </package>
     <package name="src.jwt">
-      <metrics statements="35" coveredstatements="24" conditionals="3" coveredconditionals="1" methods="8" coveredmethods="6"/>
+      <metrics statements="39" coveredstatements="25" conditionals="3" coveredconditionals="1" methods="8" coveredmethods="6"/>
       <file name="authe.ts" path="C:\Users\USER\OneDrive\Desktop\andela preparation\work\back-endblogs\src\jwt\authe.ts">
-        <metrics statements="35" coveredstatements="24" conditionals="3" coveredconditionals="1" methods="8" coveredmethods="6"/>
+        <metrics statements="39" coveredstatements="25" conditionals="3" coveredconditionals="1" methods="8" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -291,29 +291,33 @@
         <line num="21" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
-        <line num="46" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="52" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="70" count="7" type="stmt"/>
-        <line num="71" count="7" type="stmt"/>
-        <line num="72" count="7" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="49" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="73" count="7" type="stmt"/>
+        <line num="74" count="7" type="stmt"/>
+        <line num="75" count="7" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
         <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.middleware">

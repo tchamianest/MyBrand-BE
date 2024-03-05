@@ -121,7 +121,7 @@ describe("blogchecking and also login", () => {
   it("ckecking for login", async () => {
     const response = await supertest(app).post("/api/login").send({
       email: "tchamianest@gmail.com",
-      password: "tchami1234",
+      password: "tchami12345",
     });
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty("token");
