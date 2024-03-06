@@ -64,24 +64,24 @@ Method: POST
 
 ### 3. Likes
 
-##### put like
+#### put like
 
 Endpoint: /api/blog/blog_id/likes<br/>
 Method: POST
 
-##### get all likes
+#### get all likes
 
 Endpoint: /api/likes<br/>
 Method: GET
 
 ### 3. User
 
-##### Register
+#### Register
 
 Endpoint: /api/register <br/>
 Method: POST
 
-##### LOGIN
+#### LOGIN
 
 Endpoint: /api/register </br>
 Method: POSTs
