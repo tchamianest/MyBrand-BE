@@ -167,7 +167,7 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "summary": "Update the blog with id",
         "tags": [" single Blogs"],
         "parameters": [
@@ -246,7 +246,7 @@
           "type": "string"
         }
       ],
-      "put": {
+      "patch": {
         "tags": ["Message"],
         "parameters": [
           {
